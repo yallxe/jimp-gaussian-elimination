@@ -7,6 +7,11 @@
  */
 int backsubst(Matrix *x, Matrix *A, Matrix *b)
 {
+	if (A->r != A->c || x->r != A->c || x->r != b->r)
+		return 2;
+	if (A->data[A->r - 1][A->r - 1] == 0)
+		return 1;
+
 	x->data[A->r - 1][0] = b->data[A->r - 1][0] / A->data[A->r - 1][A->r - 1];
 
 	for (int r = A->r - 2; r >= 0; r--)
@@ -20,6 +25,8 @@ int backsubst(Matrix *x, Matrix *A, Matrix *b)
 		}
 
 		x->data[r][0] = b->data[r][0] / A->data[r][r];
+		if (A->data[r][r] == 0)
+			return 1;
 	}
 
 	return 0;
