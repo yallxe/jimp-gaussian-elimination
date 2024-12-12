@@ -20,6 +20,9 @@ int main(int argc, char **argv)
 
 	res = eliminate(A, b);
 	x = createMatrix(b->r, 1);
+	printToScreen(A);
+	printToScreen(b);
+
 	if (x != NULL)
 	{
 		res = backsubst(x, A, b);
