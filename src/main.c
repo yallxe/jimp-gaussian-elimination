@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 	if (res)
 	{
 		fprintf(stderr, "macierz osobliwa - dzielenie przez 0.\n");
+		return 1;
 	}
 
 	x = createMatrix(b->r, 1);
@@ -37,10 +38,10 @@ int main(int argc, char **argv)
 		{
 		case 1:
 			fprintf(stderr, "Błąd! Dzielenie przez 0. Macierz nie może zawierać elementów zerowych.\n");
-			break;
+			return 1;
 		case 2:
 			fprintf(stderr, "Błąd! Nieprawidłowy rozmiar macierzy.\n");
-			break;
+			return 2;
 		default:
 			break;
 		}
