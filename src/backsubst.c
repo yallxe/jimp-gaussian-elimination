@@ -6,9 +6,16 @@
  */
 int backsubst(Matrix *x, Matrix *A, Matrix *b)
 {
-	for (int r = A->r; r >= 0; r--)
+	x->data[A->r][0] = b->data[A->r][0] / A->data[A->r][A->r];
+	for (int r = A->r - 1; r >= 0; r--)
 	{
+		for (int c = A->r; c > r; c--)
+		{
+			b->data[r][0] -= A->data[r][c] * x->data[c][0];
+			A->data[r][c] = 0;
 		}
+		x->data[r][0] = b->data[r][0] / A->data[r][r];
+	}
 
 	return 0;
 }
