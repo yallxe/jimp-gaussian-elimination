@@ -19,10 +19,32 @@ int main(int argc, char **argv)
 	printToScreen(b);
 
 	res = eliminate(A, b);
+
+	if (res)
+	{
+		fprintf(stderr, "macierz osobliwa - dzielenie przez 0.\n");
+		return 1;
+	}
+
 	x = createMatrix(b->r, 1);
+	printToScreen(A);
+	printToScreen(b);
+
 	if (x != NULL)
 	{
 		res = backsubst(x, A, b);
+
+		switch (res)
+		{
+		case 1:
+			fprintf(stderr, "Błąd! Dzielenie przez 0. Macierz nie może zawierać elementów zerowych.\n");
+			return 1;
+		case 2:
+			fprintf(stderr, "Błąd! Nieprawidłowy rozmiar macierzy.\n");
+			return 2;
+		default:
+			break;
+		}
 
 		printToScreen(x);
 		freeMatrix(x);
